@@ -1,0 +1,29 @@
+[package]
+name = "soem-stm32f4-processdata"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = []
+enable-op = []
+sii = []
+
+[dependencies]
+cortex-m = "0.7.7"
+cortex-m-rt = "0.7.5"
+embedded-hal = "1.0.0"
+embedded-hal-nb = "1.0.0"
+embedded-hal-bus = "0.2.0"
+stm32f4xx-hal = { version = "0.23.0", features = ["stm32f446"] }
+soem-lib = { path = "../soem-lib" }
+lan9250 = { path = "../soem-lib/drivers/lan9250" }
+soem-stm32f4-slaveinfo = { path = "../soem-stm32f4-slaveinfo" }
+
+[profile.release]
+codegen-units = 1
+debug = 2
+lto = true
+opt-level = "s"
+
+[profile.dev]
+opt-level = 1
