@@ -1,10 +1,11 @@
+//USART2 TX on PA2, physically isolated from the SPI1 LAN9250 IRQ net.
 use core::{cell::RefCell, fmt::{Arguments, Write}};
 use cortex_m::interrupt::{self, Mutex};
-use stm32f4xx_hal::{pac::UART5, serial::Tx};
+use stm32f4xx_hal::{pac::USART2, serial::Tx};
 
-static UART: Mutex<RefCell<Option<Tx<UART5>>>> = Mutex::new(RefCell::new(None));
+static UART: Mutex<RefCell<Option<Tx<USART2>>>> = Mutex::new(RefCell::new(None));
 
-pub fn init(tx: Tx<UART5>)
+pub fn init(tx: Tx<USART2>)
 {
   interrupt::free(|cs| UART.borrow(cs).replace(Some(tx)));
 }
